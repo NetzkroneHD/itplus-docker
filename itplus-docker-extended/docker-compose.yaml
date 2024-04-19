@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 1s
+      timeout: 1s
+      retries: 500
+    ports:
+      - "5432:5432"
+    networks:
+      - extended-backend
+    volumes:
+      - ./server-data:/var/lib/postgresql/data
+
+  itplus-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - SERVER_SERVLET_CONTEXT_PATH=/itplus/api/v1
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${PG_DATABASE}
+      - SPRING_DATASOURCE_USERNAME=${PG_USER}
+      - SPRING_DATASOURCE_PASSWORD=${PG_PASSWORD}
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DLL_AUTO=update
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - extended-backend
+
+networks:
+  extended-backend:
+

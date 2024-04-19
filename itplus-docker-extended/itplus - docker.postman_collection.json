@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "d07c5271-a2b0-43c5-8cd5-fe86f03ea876",
+		"name": "itplus - docker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26056002"
+	},
+	"item": [
+		{
+			"name": "createModel",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"licenseKey\": \"r35139uui9wIpQT68U8bxp1tGryDR35Yv9dRtAItlNgHe91dLh\",\r\n    \"publisher\": \"c0b2963b-2594-4466-aed2-f158d71c6010\",\r\n    \"notes\": \"\",\r\n    \"valid\": true,\r\n    \"validUntil\": \"2029-02-13T19:45:49.334577Z\",\r\n    \"listMode\": \"WHITELIST\",\r\n    \"ipAddresses\": [\"172.22.0.1\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/extended?name={{$randomAdjective}}&description={{$randomBs}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"extended"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{$randomAdjective}}"
+						},
+						{
+							"key": "description",
+							"value": "{{$randomBs}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getModels",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/extended",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"extended"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "tokenName",
+				"value": "license",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{access_token_url}}",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{auth_url}}",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "7CHdYlPpft8Pnqfg3t90tnmJNqIIM3hi",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "license-client",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid",
+				"type": "string"
+			},
+			{
+				"key": "useBrowser",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:8080/itplus/api/v1",
+			"type": "string"
+		}
+	]
+}
