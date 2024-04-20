@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:16-jre-alpine
 
 WORKDIR /home/app/simple
 
